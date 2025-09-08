@@ -24,7 +24,7 @@ class BackupMysql extends Page
 
     // public function mount(): void {
     //     $user = auth()->user();
-    //     if(!$user->hasRole('super-admin')){
+    //     if(!$user->hasRole('super-admin')/** @phpstan-ignore method.nonObject */){
     //         redirect('/admin');
     //     }
     // }
@@ -33,7 +33,7 @@ class BackupMysql extends Page
     {
         Assert::isArray($connections = config('database.connections'));
 
-        $connections = array_filter($connections, fn ($item): bool => 'mysql' === $item['driver']);
+        $connections = array_filter($connections, fn ($item): bool => $item['driver'] === 'mysql');
 
         // $connections=collect($connections)->keyBy('database');
         return ['connections' => $connections];
