@@ -18,7 +18,11 @@ class ViewDatabaseConnection extends ViewRecord
             Actions\EditAction::make(),
             Actions\DeleteAction::make(),
             Actions\Action::make('test')
-                ->action(fn () => $this->record->testConnection())
+                ->action(function () {
+                    /** @var \Modules\Setting\Models\DatabaseConnection|null $record */
+                    $record = $this->record;
+                    $record?->testConnection();
+                })
                 ->icon('heroicon-o-check-circle')
                 ->color('success'),
         ];
